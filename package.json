@@ -26,7 +26,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.config.js",
-    "start": "node dist/mainserver.js"
+    "start": "node dist/mainserver.js",
+    "docker": "docker build -t nicholasaa/timertrackerserver ."
   },
   "author": "nicholasaa@gmail.com",
   "license": "ISC",
