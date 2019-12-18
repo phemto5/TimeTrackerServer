@@ -9,8 +9,8 @@ import * as bodyParser from "body-parser";
 import * as Seq from "sequelize";
 import * as finale from "finale-rest";
 
-const app = express.default();
-app.use(cors.default());
+const app = express();
+app.use(cors());
 app.use(bodyParser.json());
 const database = new Seq.Sequelize({
   dialect: "sqlite",

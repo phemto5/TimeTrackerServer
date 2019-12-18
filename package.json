@@ -20,11 +20,12 @@
     "tslint": "^5.20.1",
     "typescript": "^3.7.3",
     "webpack": "^4.41.3",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.10",
+    "webpack-node-externals": "^1.7.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node dist/mainserver.js"
   },
   "author": "nicholasaa@gmail.com",
   "license": "ISC",
