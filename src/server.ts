@@ -1,63 +1,68 @@
-const express = require("express");
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const Sequelize = require("sequelize");
-const finale = require("finale-rest");
+// const express = require("express");
+// const cors = require("cors");
+// const bodyParser = require("body-parser");
+// const Sequelize = require("sequelize");
+// const finale = require("finale-rest");
+import * as express from "express";
+import * as cors from "cors";
+import * as bodyParser from "body-parser";
+import * as Seq from "sequelize";
+import * as finale from "finale-rest";
 
-let app = express();
-app.use(cors());
+const app = express.default();
+app.use(cors.default());
 app.use(bodyParser.json());
-let database = new Sequelize({
+const database = new Seq.Sequelize({
   dialect: "sqlite",
   storage: "./Time.sqlite"
 });
-let Chunk = database.define("chunk", {
-  start: Sequelize.STRING,
-  open: Sequelize.BOOLEAN,
-  stop: Sequelize.STRING,
-  customer: Sequelize.NUMBER,
-  body: Sequelize.TEXT,
-  tag: Sequelize.STRING
+const Chunk = database.define("chunk", {
+  start: Seq.STRING,
+  open: Seq.BOOLEAN,
+  stop: Seq.STRING,
+  customer: Seq.NUMBER,
+  body: Seq.TEXT,
+  tag: Seq.STRING
 });
-let Customer = database.define("customer", {
-  name: Sequelize.STRING
+const Customer = database.define("customer", {
+  name: Seq.STRING
 });
-let Contact = database.define("contact", {
-  fname: Sequelize.STRING,
-  mname: Sequelize.STRING,
-  lname: Sequelize.STRING,
-  customerId: Sequelize.NUMBER
+const Contact = database.define("contact", {
+  fname: Seq.STRING,
+  mname: Seq.STRING,
+  lname: Seq.STRING,
+  customerId: Seq.NUMBER
 });
 let Address = database.define("address", {
-  street1: Sequelize.STRING,
-  street2: Sequelize.STRING,
-  city: Sequelize.STRING,
-  country: Sequelize.STRING,
-  zip: Sequelize.NUMBER,
-  endpointType: Sequelize.NUMBER,
-  refType: Sequelize.STRING,
-  refID: Sequelize.NUMBER
+  street1: Seq.STRING,
+  street2: Seq.STRING,
+  city: Seq.STRING,
+  country: Seq.STRING,
+  zip: Seq.NUMBER,
+  endpointType: Seq.NUMBER,
+  refType: Seq.STRING,
+  refID: Seq.NUMBER
 });
 let Phone = database.define("phone", {
-  number: Sequelize.STRING,
-  endpointType: Sequelize.NUMBER,
-  refType: Sequelize.STRING,
-  refID: Sequelize.NUMBER
+  number: Seq.STRING,
+  endpointType: Seq.NUMBER,
+  refType: Seq.STRING,
+  refID: Seq.NUMBER
 });
 let Email = database.define("email", {
-  email: Sequelize.STRING,
-  endpointType: Sequelize.NUMBER,
-  refType: Sequelize.STRING,
-  refID: Sequelize.NUMBER
+  email: Seq.STRING,
+  endpointType: Seq.NUMBER,
+  refType: Seq.STRING,
+  refID: Seq.NUMBER
 });
 let Web = database.define("web", {
-  uri: Sequelize.STRING,
-  endpointType: Sequelize.NUMBER,
-  refType: Sequelize.STRING,
-  refID: Sequelize.NUMBER
+  uri: Seq.STRING,
+  endpointType: Seq.NUMBER,
+  refType: Seq.STRING,
+  refID: Seq.NUMBER
 });
 let EndType = database.define("endtype", {
-  name: Sequelize.STRING
+  name: Seq.STRING
 });
 finale.initialize({
   app: app,
