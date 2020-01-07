@@ -1,26 +1,34 @@
-// const express = require("express");
-// const cors = require("cors");
-// const bodyParser = require("body-parser");
-// const Sequelize = require("sequelize");
-// const finale = require("finale-rest");
 import * as express from "express";
 import * as cors from "cors";
 import * as bodyParser from "body-parser";
 import * as Seq from "sequelize";
 import * as finale from "finale-rest";
+import * as path from "path";
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-const database = new Seq.Sequelize({
-  dialect: "sqlite",
-  storage: "./Time.sqlite"
-});
+console.log(__dirname,__filename,path.dirname('src'));
+const auth:{pass:string} ={pass:"letmein"} 
+const database = new Seq.Sequelize('TimeTracker','AppAuth',auth.pass,{
+  host:'localhost',
+  dialect:'postgres',
+  pool:{
+    max:9,
+    min:0,
+    idle:1000
+  }
+})
+database.authenticate().then(()=>{
+  console.log('Authneticated to Database');
+}).catch((err)=>{
+  console.error(err);
+})
 const Chunk = database.define("chunk", {
   start: Seq.STRING,
   open: Seq.BOOLEAN,
   stop: Seq.STRING,
-  customer: Seq.NUMBER,
+  customer: Seq.INTEGER,
   body: Seq.TEXT,
   tag: Seq.STRING
 });
@@ -31,35 +39,35 @@ const Contact = database.define("contact", {
   fname: Seq.STRING,
   mname: Seq.STRING,
   lname: Seq.STRING,
-  customerId: Seq.NUMBER
+  customerId: Seq.INTEGER
 });
 let Address = database.define("address", {
   street1: Seq.STRING,
   street2: Seq.STRING,
   city: Seq.STRING,
   country: Seq.STRING,
-  zip: Seq.NUMBER,
-  endpointType: Seq.NUMBER,
+  zip: Seq.INTEGER,
+  endpointType: Seq.INTEGER,
   refType: Seq.STRING,
-  refID: Seq.NUMBER
+  refID: Seq.INTEGER
 });
 let Phone = database.define("phone", {
   number: Seq.STRING,
-  endpointType: Seq.NUMBER,
+  endpointType: Seq.INTEGER,
   refType: Seq.STRING,
-  refID: Seq.NUMBER
+  refID: Seq.INTEGER
 });
 let Email = database.define("email", {
   email: Seq.STRING,
-  endpointType: Seq.NUMBER,
+  endpointType: Seq.INTEGER,
   refType: Seq.STRING,
-  refID: Seq.NUMBER
+  refID: Seq.INTEGER
 });
 let Web = database.define("web", {
   uri: Seq.STRING,
-  endpointType: Seq.NUMBER,
+  endpointType: Seq.INTEGER,
   refType: Seq.STRING,
-  refID: Seq.NUMBER
+  refID: Seq.INTEGER
 });
 let EndType = database.define("endtype", {
   name: Seq.STRING
@@ -108,7 +116,7 @@ let endtypeResources = finale.resource({
   model: EndType,
   endpoints: ["/endtypes", "/endtypes/:id"]
 });
-database.sync({ force: true }).then(() => {
+database.sync({ force: false}).then(() => {
   app.listen(8081, () => {
     console.log("Listening on Localhost:8081");
   });
