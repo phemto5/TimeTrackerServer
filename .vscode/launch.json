@@ -9,6 +9,10 @@
       "request": "launch",
       "name": "Launch Program",
       "skipFiles": ["<node_internals>/**"],
+      "preLaunchTask":{
+        "task": "build",
+        "type": "gulp"
+      },
       "program": "${workspaceFolder}/dist/mainserver.js",
       "outFiles": ["${workspaceFolder}/**/*.js"]
     }
