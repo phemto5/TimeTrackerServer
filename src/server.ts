@@ -3,21 +3,17 @@ import * as cors from "cors";
 import * as bodyParser from "body-parser";
 import * as Seq from "sequelize";
 import * as finale from "finale-rest";
-import * as path from "path";
+import * as config from "./config.json";
+import IConfig from "./IConfig";
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-console.log(__dirname,__filename,path.dirname('src'));
-const auth:{pass:string} ={pass:"letmein"} 
-const database = new Seq.Sequelize('TimeTracker','AppAuth',auth.pass,{
-  host:'localhost',
-  dialect:'postgres',
-  pool:{
-    max:9,
-    min:0,
-    idle:1000
-  }
+const con:IConfig  = config as IConfig;
+const database = new Seq.Sequelize( con.database, con.user,con.pass,{
+  host:con.server,
+  dialect:con.dialect,
+  pool:con.pool
 })
 database.authenticate().then(()=>{
   console.log('Authneticated to Database');

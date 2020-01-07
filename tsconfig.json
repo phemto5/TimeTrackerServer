@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
-    "sourceMap": true
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "module": "commonjs",
+    // "esModuleInterop": true
   }
 }
