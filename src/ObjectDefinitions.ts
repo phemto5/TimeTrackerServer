@@ -1,12 +1,16 @@
 import * as Seq from "sequelize";
+export const Passwords = {
+  unameid: Seq.INTEGER,
+  password: Seq.STRING
+};
 export const Account = {
   uname: Seq.STRING,
   fname: Seq.STRING,
   lname: Seq.STRING,
   mname: Seq.STRING,
   address: Seq.INTEGER,
-  email: Seq.INTEGER,
-  password: Seq.STRING
+  email: Seq.INTEGER
+  // password: Seq.STRING
 };
 export const Chunk = {
   start: Seq.STRING,
