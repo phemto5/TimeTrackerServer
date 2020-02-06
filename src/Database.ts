@@ -19,11 +19,11 @@ export const database = new Seq.Sequelize(con.database, con.user, con.pass, {
   dialect: con.dialect,
   pool: con.pool
 });
-interface IdbPasswords extends Seq.Model {
+export interface IdbPasswords extends Seq.Model {
   unameid: number;
   password: string;
 }
-interface IdbAccount extends Seq.Model {
+export interface IdbAccount extends Seq.Model {
   id: number;
   uname: string;
   fname: string;

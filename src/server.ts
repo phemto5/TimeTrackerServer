@@ -12,6 +12,8 @@ import {
   database,
   dbPassword,
   dbAccount,
+  IdbAccount,
+  IdbPasswords,
   dbChunk,
   dbCustomer,
   dbMatter,
@@ -37,15 +39,27 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.post("/login", async (req, res, next) => {
   let payload: Login = req.body;
 
-  let opts: Seq.FindOptions = { where: { uname: payload.username } };
-  const acct = await dbAccount.findOne(opts);
-  const pass = await dbPassword.findOne({ where: { unameid: acct.id } });
-  console.log(acct, pass);
+  let opts: Seq.FindOptions = { where: { uname: payload.uname } };
+  let acct: IdbAccount = { id: null } as IdbAccount;
+  let pass: IdbPasswords = {} as IdbPasswords;
+  try {
+    acct = await dbAccount.findOne(opts);
+    pass = await dbPassword.findOne({ where: { unameid: acct.id } });
+  } catch (e) {
+    console.log(`Login Failed for :`, e);
+  }
   let account = 1;
-  let result = "sucess";
-  let token = "highfive";
+  let result = "failed";
+  let token = null;
   let expires = new Date();
-  expires.setHours(expires.getHours() + 24);
+  if (pass.password == payload.pass) {
+    console.log(acct, pass);
+    account = 1;
+    result = "sucess";
+    token = "highfive";
+    expires = new Date();
+    expires.setHours(expires.getHours() + 24);
+  }
 
   res.json({
     msg: `Login ${result}`,
