@@ -23,6 +23,7 @@ import {
   dbWeb,
   dbEndType
 } from "./Database";
+import LoginResponse from "./LoginResponse";
 database
   .authenticate()
   .then(() => {
@@ -44,34 +45,29 @@ app.post("/login", async (req, res, next) => {
   let pass: IdbPasswords = {} as IdbPasswords;
   try {
     acct = await dbAccount.findOne(opts);
-    pass = await dbPassword.findOne({ where: { unameid: acct.id } });
+    if (acct.id) {
+      pass = await dbPassword.findOne({ where: { unameid: acct.id } });
+      if (pass.unameid) {
+        console.log("unameid");
+      }
+    }
   } catch (e) {
     console.log(`Login Failed for :`, e);
   }
-  let account = 1;
-  let result = "failed";
-  let token = null;
-  let expires = new Date();
+  let lresp = new LoginResponse(0);
   if (pass.password == payload.pass) {
     console.log(acct, pass);
-    account = 1;
-    result = "sucess";
-    token = "highfive";
-    expires = new Date();
+    lresp.account = acct.id;
+    lresp.msg = "sucess";
+    lresp.token = "lowSix";
+    let expires = new Date();
     expires.setHours(expires.getHours() + 24);
+    lresp.expires = expires;
   }
 
-  res.json({
-    msg: `Login ${result}`,
-    account: account,
-    token: token,
-    expires: expires
-  });
+  res.json(lresp);
   next();
 });
-
-let server = http.createServer(app);
-let sslserver = https.createServer(app);
 
 finale.initialize({
   app: app,
@@ -138,6 +134,10 @@ const declareport = (server: http.Server | https.Server) => {
   let port = addressinfo.port;
   console.log(`Listening on ${host}:${port}`);
 };
+
+let server = http.createServer(app);
+let sslserver = https.createServer(app);
+
 database.sync({ force: false }).then(() => {
   server.listen(8081, () => {});
   sslserver.listen(8443, () => {});
