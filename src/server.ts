@@ -90,7 +90,7 @@ let passwordsResource = finale.resource({
   model: dbPassword,
   endpoints: ["/password", "/password/:id"],
   search: {
-    param: "accountid",
+    param: "unameid",
     attributes: ["unameid"]
   }
 });
@@ -105,7 +105,7 @@ let chunkResource = finale.resource({
   model: dbChunk,
   endpoints: ["/chunks", "/chunks/:id"],
   search: {
-    param: "accountid",
+    param: "owner",
     attributes: ["owner"]
   }
 });
