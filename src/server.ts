@@ -3,7 +3,6 @@ import * as cors from "cors";
 import * as bodyParser from "body-parser";
 import * as Seq from "sequelize";
 import * as finale from "finale-rest";
-
 import * as http from "http";
 import * as https from "https";
 import Login from "./Login";
@@ -24,6 +23,7 @@ import {
   dbEndType
 } from "./Database";
 import LoginResponse from "./LoginResponse";
+import { runInNewContext } from "vm";
 database
   .authenticate()
   .then(() => {
@@ -43,29 +43,41 @@ app.post("/login", async (req, res, next) => {
   let opts: Seq.FindOptions = { where: { uname: payload.uname } };
   let acct: IdbAccount = { id: null } as IdbAccount;
   let pass: IdbPasswords = {} as IdbPasswords;
+  let lresp = new LoginResponse(0);
   try {
     acct = await dbAccount.findOne(opts);
     if (acct.id) {
       pass = await dbPassword.findOne({ where: { unameid: acct.id } });
-      if (pass.unameid) {
+      if (pass && pass.unameid) {
         console.log("unameid");
+        if (pass.password == payload.pass) {
+          console.log(`Name ${acct.uname} passhash ${pass.password}`);
+          lresp.accountId = acct.id;
+          lresp.msg = "sucess";
+          lresp.token = "downFought";
+          let expires = new Date();
+          expires.setHours(expires.getHours() + 24);
+          lresp.expires = expires;
+        } else {
+          console.error("passwords don't match");
+          lresp.msg = "Passwords don't Match";
+        }
+      } else {
+        console.error("password Not Found");
+        lresp.msg = "password not in database";
       }
+    } else {
+      console.error("No One Found");
+      lresp.msg = "Login Not found";
     }
   } catch (e) {
     console.log(`Login Failed for :`, e);
   }
-  let lresp = new LoginResponse(0);
-  if (pass.password == payload.pass) {
-    console.log(acct, pass);
-    lresp.account = acct.id;
-    lresp.msg = "sucess";
-    lresp.token = "lowSix";
-    let expires = new Date();
-    expires.setHours(expires.getHours() + 24);
-    lresp.expires = expires;
-  }
 
   res.json(lresp);
+  next();
+});
+app.post("/createAccount", (req, res, next) => {
   next();
 });
 
@@ -91,7 +103,11 @@ let accountResource = finale.resource({
 // eslint-disable-next-line no-unused-vars
 let chunkResource = finale.resource({
   model: dbChunk,
-  endpoints: ["/chunks", "/chunks/:id"]
+  endpoints: ["/chunks", "/chunks/:id"],
+  search: {
+    param: "accountid",
+    attributes: ["owner"]
+  }
 });
 // eslint-disable-next-line no-unused-vars
 let customerResources = finale.resource({
@@ -138,7 +154,7 @@ const declareport = (server: http.Server | https.Server) => {
 let server = http.createServer(app);
 let sslserver = https.createServer(app);
 
-database.sync({ force: false }).then(() => {
+database.sync({ force: true }).then(() => {
   server.listen(8081, () => {});
   sslserver.listen(8443, () => {});
   declareport(server);

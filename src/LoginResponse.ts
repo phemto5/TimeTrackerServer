@@ -1,14 +1,14 @@
-import ILoginResponse from "./ILoginRespoonse";
+import ILoginResponse from "./ILoginResponse";
 
 export default class LoginResponse implements ILoginResponse {
   msg: string;
-  account: number;
+  accountId: number;
   token: string;
   expires: Date;
   constructor(accountid: number) {
     this.msg = "failed";
-    this.account = accountid;
-    this.token = null;
+    this.accountId = accountid;
+    this.token = "None";
     this.expires = new Date();
   }
   generateExiresDate() {

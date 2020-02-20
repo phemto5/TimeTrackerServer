@@ -1,6 +1,6 @@
 export default interface ILoginResponse {
   msg: string;
-  account: number;
+  accountId: number;
   token: string;
   expires: Date;
   generateExiresDate: () => {};
