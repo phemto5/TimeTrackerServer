@@ -27,5 +27,10 @@ module.exports = {
       chunks: "all"
     }
   },
+  // // Not page devServer won't work ?
+  // devServer:{
+  //   contentBase: path.join(__dirname,'dist'),
+  //   port:8081
+  // },
   externals: [nodeExternals()]
 };

@@ -3,15 +3,8 @@ var webpack = require("webpack");
 var gulpWebpack = require("gulp-webpack");
 var del = require("del");
 var config = require("./webpack.config");
-// gulp.task("build", function() {
-//   return gulp
-//     .src("src/server.ts")
-//     .pipe(gulpWebpack(config, webpack))
-//     .pipe(gulp.dest("dist/"));
-// });
-// gulp.task("start",[build],function(){
+// var server = require("gulp-express");
 
-// });
 const { series } = require("gulp");
 function clean(cb) {
   del(["dist"]);
@@ -26,10 +19,16 @@ function build(cb) {
 function copy(cb) {
   cb();
 }
+// function start(/*cb*/) {
+//   server.run(["./dist/mainserver.js"]);
+//   // cb();
+// }
 exports.copy = copy;
 exports.clean = clean;
 exports.build = series(build, copy);
 exports.default = series(clean, build, copy);
+// exports.start = series(clean, copy, start);
 exports.watch = function() {
-  watch("src/**.ts", series(clean, build));
+  // start();
+  watch("src/**.ts", series(clean, build, copy));
 };
