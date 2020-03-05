@@ -14,9 +14,9 @@
     "sqlite3": "^4.1.1"
   },
   "devDependencies": {
-    "@types/body-parser": "^1.17.1",
+    "@types/body-parser": "^1.19.0",
     "@types/cors": "^2.8.6",
-    "@types/express": "^4.17.2",
+    "@types/express": "^4.17.3",
     "@types/sequelize": "^4.28.8",
     "del": "^5.1.0",
     "gulp": "^4.0.2",
@@ -25,9 +25,9 @@
     "pg-hstore": "^2.3.3",
     "ts-loader": "^6.2.1",
     "tslint": "^5.20.1",
-    "typescript": "^3.7.3",
-    "webpack": "^4.41.3",
-    "webpack-cli": "^3.3.10",
+    "typescript": "^3.8.3",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11",
     "webpack-node-externals": "^1.7.2"
   },
   "scripts": {
@@ -38,5 +38,9 @@
   },
   "author": "nicholasaa@gmail.com",
   "license": "ISC",
-  "description": ""
+  "description": "This is the back end server for the time tracker app.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/phemto5/TimeTrackerServer.git"
+  }
 }
