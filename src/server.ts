@@ -23,7 +23,7 @@ import {
   dbEndType
 } from "./Database";
 import LoginResponse from "./LoginResponse";
-import { runInNewContext } from "vm";
+// import { runInNewContext } from "vm";
 database
   .authenticate()
   .then(() => {
