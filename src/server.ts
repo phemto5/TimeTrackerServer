@@ -112,37 +112,64 @@ let chunkResource = finale.resource({
 // eslint-disable-next-line no-unused-vars
 let customerResources = finale.resource({
   model: dbCustomer,
-  endpoints: ["/customers", "/customers/:id"]
+  endpoints: ["/customers", "/customers/:id"],
+  search:{
+    param:'accountid',
+    attributes:["refID"]
+  }
 });
 // eslint-disable-next-line no-unused-vars
 let matterResources = finale.resource({
   model: dbMatter,
-  endpoints: ["/matter", "/matter/:id"]
+  endpoints: ["/matters", "/matters/:id"],
+  search:{
+    param:'accountid',
+    attributes:["refID"]
+  }
 });
 // eslint-disable-next-line no-unused-vars
 let addressResources = finale.resource({
   model: dbAddress,
-  endpoints: ["/addresses", "/addresses/:id"]
+  endpoints: ["/addresses", "/addresses/:id"],
+  search:{
+    param:'accountid',
+    attributes:["refID"]
+  }
 });
 // eslint-disable-next-line no-unused-vars
 let phoneResources = finale.resource({
   model: dbPhone,
-  endpoints: ["/phones", "/phones/:id"]
+  endpoints: ["/phones", "/phones/:id"],
+  search:{
+    param:'accountid',
+    attributes:["refID"]
+  }
 });
 // eslint-disable-next-line no-unused-vars
 let emailResources = finale.resource({
   model: dbEmail,
-  endpoints: ["/emails", "/emails/:id"]
+  endpoints: ["/emails", "/emails/:id"],
+  search:{
+    param:'accountid',
+    attributes:["refID"]}
 });
 // eslint-disable-next-line no-unused-vars
 let webResources = finale.resource({
   model: dbWeb,
-  endpoints: ["/webs", "/webs/:id"]
+  endpoints: ["/webs", "/webs/:id"],
+  search:{
+    param:'accountid',
+    attributes:["refID"]
+  }
 });
 // eslint-disable-next-line no-unused-vars
 let endtypeResources = finale.resource({
   model: dbEndType,
-  endpoints: ["/endtypes", "/endtypes/:id"]
+  endpoints: ["/endtypes", "/endtypes/:id"],
+  search:{
+    param:'accountid',
+    attributes:["refID"]
+  }
 });
 const declareport = (server: http.Server | https.Server) => {
   let addressinfo = server.address() as AddressInfo;
