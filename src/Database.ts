@@ -4,6 +4,7 @@ import {
   Account,
   Chunk,
   Customer,
+  Contact,
   Matter,
   Address,
   Phone,
@@ -42,6 +43,7 @@ export const dbPassword = <dbPasswordStatic>(
   database.define("password", Passwords)
 );
 export const dbAccount = <dbAccountStatic>database.define("account", Account);
+export const dbContact = database.define("contact", Contact);
 export const dbChunk = database.define("chunk", Chunk);
 export const dbCustomer = database.define("customer", Customer);
 export const dbMatter = database.define("matter", Matter);
