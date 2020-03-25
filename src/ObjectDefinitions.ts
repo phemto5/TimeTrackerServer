@@ -1,5 +1,6 @@
 import * as Seq from "sequelize";
 import sequelize = require("sequelize");
+//passwords are for login only
 export const Passwords = {
   unameid: Seq.INTEGER,
   password: Seq.STRING
