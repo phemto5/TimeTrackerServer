@@ -55,7 +55,7 @@ app.post("/login", async (req, res, next) => {
           console.log(`Name ${acct.uname} passhash ${pass.password}`);
           lresp.accountId = acct.id;
           lresp.msg = "sucess";
-          lresp.token = "downFought";
+          lresp.token = "Large and inconciveable token";
           let expires = new Date();
           expires.setHours(expires.getHours() + 24);
           lresp.expires = expires;

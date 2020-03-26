@@ -1,5 +1,5 @@
 {
-  "server": "10.2.251.205",
+  "server": "172.17.192.114",
   "database": "TimeTracker",
   "dialect": "postgres",
   "user": "AppAuth",
