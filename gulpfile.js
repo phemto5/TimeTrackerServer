@@ -19,9 +19,9 @@ function build(cb) {
 function copy(cb) {
   cb();
 }
-// function start(/*cb*/) {
+// function start(cb) {
 //   server.run(["./dist/mainserver.js"]);
-//   // cb();
+//   cb();
 // }
 exports.copy = copy;
 exports.clean = clean;
