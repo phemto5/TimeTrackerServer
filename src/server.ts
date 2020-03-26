@@ -106,7 +106,7 @@ let chunkResource = finale.resource({
   model: dbChunk,
   endpoints: ["/chunks", "/chunks/:id"],
   search: {
-    param: "refID",
+    param: "accountid",
     attributes: ["refID"]
   }
 });
