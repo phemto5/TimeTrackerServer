@@ -5,7 +5,7 @@
   "dependencies": {
     "@types/node": "^12.12.21",
     "cors": "^2.8.5",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "finale-rest": "^1.1.0",
     "gulp-connect": "^5.7.0",
     "gulp-express": "^0.3.5",
