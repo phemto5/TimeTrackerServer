@@ -10,7 +10,7 @@
     "gulp-connect": "^5.7.0",
     "gulp-express": "^0.3.5",
     "pg": "^7.17.0",
-    "sequelize": "^5.21.3",
+    "sequelize": "^6.28.2",
     "sqlite3": "^4.1.1"
   },
   "devDependencies": {
